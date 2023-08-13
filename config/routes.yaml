@@ -1,0 +1,8 @@
+controllers:
+    resource: ../src/Controller/
+    type: attribute
+admin_edit_user:
+    path: /admin/user/{id}/edit
+    controller: App\Controller\AdminController::editUser
+    requirements:
+        id: \d+ # Matches only integers

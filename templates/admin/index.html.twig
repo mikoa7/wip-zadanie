@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('frontcss') }}
+{% endblock %}
+{% block body %}
+{% for message in app.flashes('successEdit') %}
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-bg alert alert-success">{{ message }}</nav>
+{% endfor %}
+{% for message in app.flashes('successDelete') %}
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-bg alert alert-success">{{ message }}</nav>
+{% endfor %}
+    <div class="user-details m-2">
+        {% for user in users %}
+            <div class="user-card">
+                <p><strong>Imię:</strong> {{ user.name }}</p>
+                <p><strong>Nazwisko:</strong> {{ user.surname }}</p>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>Opis:</strong> {{ user.description }}</p>
+                <p><strong>Pozycja:</strong> {{ user.standpoint }}</p>
+                 {% if user.standpoint == 'tester' %}
+                <p><strong>Testing Systems:</strong> {{ user.testingSystems }}</p>
+                <p><strong>Reporting Systems:</strong> {{ user.reportingSystems }}</p>
+                <p><strong>Knows Selenium: </strong>{{ user.knowsSelenium == 1 ? 'yes' : 'no' }}</p>
+                {% elseif user.standpoint == 'developer' %}
+                <p><strong>IDE environments:</strong> {{ user.ideEnvironments }}</p>
+                <p><strong>Programming languages:</strong> {{ user.programmingLanguages }}</p>
+                <p><strong>knows MySQL: </strong>{{ user.knowsMySQL == 1 ? 'yes' : 'no' }}</p>
+                {% elseif user.standpoint == 'project_manager' %}
+                <p><strong>Project methodologies:</strong> {{ user.projectMethodologies }}</p>
+                <p><strong>Reporting systems:</strong> {{ user.reportingSystems }}</p>
+                <p><strong>knows Scrum: </strong>{{ user.knowsScrum == 1 ? 'yes' : 'no' }}</p>
+                {% endif %}
+                    <div class="user-actions">
+                    <a class="btn btn-primary" href="{{ path('admin_edit_user', { 'id': user.id }) }}">Edytuj</a>
+                    <a class="btn btn-danger" href="{{ path('admin_delete_user', { 'id': user.id }) }}" data-method="DELETE">Usuń</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+
+
+

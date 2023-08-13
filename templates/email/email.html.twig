@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+     <div class="user-details m-2">
+        {% for user in data %}
+            <div class="user-card">
+                <p><strong>Name:</strong> {{ user.name }}</p>
+                <p><strong>Surname:</strong> {{ user.surname }}</p>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>Description:</strong> {{ user.description }}</p>
+                <p><strong>Standpoint:</strong> {{ user.standpoint }}</p>
+                 {% if user.standpoint == 'tester' %}
+                <p><strong>Testing Systems:</strong> {{ user.testingSystems }}</p>
+                <p><strong>Reporting Systems:</strong> {{ user.reportingSystems }}</p>
+                <p><strong>Knows Selenium: </strong>{{ user.knowsSelenium == 1 ? 'yes' : 'no' }}</p>
+                {% elseif user.standpoint == 'developer' %}
+                <p><strong>IDE environments:</strong> {{ user.ideEnvironments }}</p>
+                <p><strong>Programming languages:</strong> {{ user.programmingLanguages }}</p>
+                <p><strong>knows MySQL: </strong>{{ user.knowsMySQL == 1 ? 'yes' : 'no' }}</p>
+                {% elseif user.standpoint == 'project_manager' %}
+                <p><strong>Project methodologies:</strong> {{ user.projectMethodologies }}</p>
+                <p><strong>Reporting systems:</strong> {{ user.reportingSystems }}</p>
+                <p><strong>knows Scrum: </strong>{{ user.knowsScrum == 1 ? 'yes' : 'no' }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+         <p>Thank you for submitting the form!</p>
+    </div>
+{% endblock %}

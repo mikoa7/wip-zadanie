@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('frontcss') }}
+{% endblock %}
+{% block body %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+     <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Edit</h2>
+                    </div>
+                    <div class="card-body">
+                        {{ form_start(form) }}
+                        <div class="form-group">
+                            {{ form_row(form.name, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(form.surname, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(form.email, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(form.description, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="form-group" id="standpoint">
+                        {{ form_row(form.standpoint, {'attr': {'class': 'form-control','id': 'stanowisko','style': 'pointer-events: none; background-color:#a9a9a9;'}}) }}
+                        </div>
+                            {% if form.standpoint.vars.value == 'developer' %}
+                            <script>
+                            $(document).ready(function() {
+                               $('#testingSystems').hide();
+                               $('#method').hide();
+                               $('#scrum').hide();
+                               $('#selenium').hide();
+                               $('#reportingSystems').hide();
+                                })
+                            </script>
+                            {% elseif form.standpoint.vars.value == 'tester'%}
+                            <script>
+                            $(document).ready(function() {
+                                $('#ide').hide();
+                                $('#languages').hide();
+                                $('#mysql').hide();
+                                $('#method').hide();
+                                $('#scrum').hide();
+                                })
+                            </script>
+                            {% elseif form.standpoint.vars.value == 'project_manager'%}
+                            <script>
+                            $(document).ready(function() {
+                               $('#testingSystems').hide();
+                               $('#selenium').hide();
+                               $('#ide').hide();
+                               $('#languages').hide();
+                               $('#mysql').hide();
+                                })
+                            </script>
+                            {% endif %}
+                          <div class="form-group mt-2" id="testingSystems">
+                            {{ form_row(form.testingSystems, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="form-group" id="reportingSystems">
+                            {{ form_row(form.reportingSystems, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="form-group" id="selenium">
+                            {{ form_row(form.knowsSelenium, {'attr': {'class': 'form-check-input ml-2'}}) }}
+                        </div>
+                           <div class="form-group mt-2" id="ide">
+                            {{ form_row(form.ideEnvironments, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="form-group" id="languages">
+                            {{ form_row(form.programmingLanguages, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="form-group" id="mysql">
+                            {{ form_row(form.knowsMySQL, {'attr': {'class': 'form-check-input ml-2'}}) }}
+                        </div>
+                                <div class="form-group mt-2" id="method">
+                            {{ form_row(form.projectMethodologies, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="form-group" id="scrum">
+                            {{ form_row(form.knowsScrum, {'attr': {'class': 'form-check-input ml-2'}}) }}
+                        </div>
+                    </div>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <div class="form-group mt-2">
+                            {{ form_row(form.submit, {'attr': {'class': 'd-none'}}) }}
+                        </div>
+                        {{ form_end(form) }}
+                         <a href="{{ path('admin_list_users') }}">Back to Users List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   <script>
+function hideAllFields() {
+    $('#testingSystems').hide();
+    $('#reportingSystems').hide();
+    $('#selenium').hide();
+    $('#ide').hide();
+    $('#languages').hide();
+    $('#mysql').hide();
+    $('#method').hide();
+    $('#scrum').hide();
+}
+  </script>
+{% endblock %}

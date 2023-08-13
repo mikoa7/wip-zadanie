@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('registration') }}
+{% endblock %}
+{% block body %}
+{% for message in app.flashes('successCreated') %}
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-bg alert alert-success">{{ message }}</nav>
+{% endfor %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        {{ form_start(registrationForm) }}
+                        <div class="form-group">
+                            {{ form_row(registrationForm.name, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(registrationForm.surname, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(registrationForm.description, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="form-group" id="standpoint">
+                            {{ form_row(registrationForm.standpoint, {'attr': {'class': 'form-control', 'id': 'stanowisko', 'onchange': 'handleStandpointChange(this)'}}) }}
+                        </div>
+                        <div class="form-group" id="testingSystems">
+                            {{ form_row(registrationForm.testingSystems,{'attr': {'class': 'form-control'}}) }}
+                        </div>
+                            <div class="form-group" id="reportingSystems">
+                            {{ form_row(registrationForm.reportingSystems,{'attr': {'class': 'form-control', }}) }}
+                        </div>
+                        <div class="form-group" id="selenium">
+                            {{ form_row(registrationForm.knowsSelenium, {'attr': {'class': 'ml-2'}}) }}
+                        </div>
+                        <div class="form-group" id="ide">
+                            {{ form_row(registrationForm.ideEnvironments,{'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="form-group" id="languages">
+                            {{ form_row(registrationForm.programmingLanguages,{'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="form-group" id="mysql">
+                            {{ form_row(registrationForm.knowsMySQL, {'attr': {'class': 'ml-2'}}) }}
+                        </div>
+                        <div class="form-group" id="method">
+                            {{ form_row(registrationForm.projectMethodologies,{'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="form-group" id="scrum">
+                            {{ form_row(registrationForm.knowsScrum, {'attr': {'class': 'ml-2'}}) }}
+                        </div>
+                        <div class="form-group mt-2">
+                            {{ form_row(registrationForm.submit, {'attr': {'class': 'btn btn-primary', 'id':"my-form-button"}}) }}
+                        </div>
+                          <p id="my-form-status"></p>
+                        {{ form_end(registrationForm) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <script>
+   $(document).ready(function() {
+    hideAllFields();
+    $('#stanowisko').change(function() {
+        handleStandpointChange(this);
+    });
+});
+
+function hideAllFields() {
+    $('#testingSystems').hide();
+    $('#reportingSystems').hide();
+    $('#selenium').hide();
+    $('#ide').hide();
+    $('#languages').hide();
+    $('#mysql').hide();
+    $('#method').hide();
+    $('#scrum').hide();
+}
+
+function handleStandpointChange(selectElement) {
+    hideAllFields();
+
+    var selectedValue = selectElement.value;
+
+    if (selectedValue === 'tester') {
+        $('#testingSystems').show();
+        $('#reportingSystems').show();
+        $('#selenium').show();
+    } else if (selectedValue === 'developer') {
+        $('#ide').show();
+        $('#languages').show();
+        $('#mysql').show();
+    } else if (selectedValue === 'project_manager') {
+        $('#reportingSystems').show();
+        $('#method').show();
+        $('#scrum').show();
+    }
+}</script>
+{% endblock %}
+
